@@ -19,8 +19,6 @@ function App() {
     if(dataApi.success){
       dispatch(addUser(dataApi.data));
     }
-
-    console.log("user data", dataResponse);
   };
 
   useEffect(() => {

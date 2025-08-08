@@ -2,9 +2,21 @@
 @plugin "daisyui";
 
 body {
-    @apply bg-slate-100
+  @apply bg-slate-100;
 }
 
-.customShadow{
-    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+.customShadow {
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+}
+
+
+/* User Table */
+.userTable{
+    @apply bg-white;
+}
+.userTable th {
+  @apply border border-gray-200 text-base font-medium;
+}
+.userTable td {
+  @apply border border-gray-200 text-base text-center;
 }
