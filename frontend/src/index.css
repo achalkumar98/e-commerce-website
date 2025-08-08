@@ -1,0 +1,10 @@
+@import "tailwindcss";
+@plugin "daisyui";
+
+body {
+    @apply bg-slate-100
+}
+
+.customShadow{
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+}
