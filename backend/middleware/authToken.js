@@ -4,28 +4,28 @@ async function authToken(req, res, next) {
   try {
     const token = req.cookies?.token;
     if (!token) {
-      return res.status(200).json({
-        message: "User not Login",
+      return res.status(401).json({
+        message: "No token, please login first",
         error: true,
         success: false,
       });
     }
 
-    jwt.verify(token, process.env.JWT_SECREAT_KEY, function (err, decoded) {
-      console.log(err);
-      console.log("decoded", decoded);
-
+    jwt.verify(token, process.env.JWT_SECRET_KEY, function (err, decoded) {
       if (err) {
-        console.log("error auth", err);
+        return res.status(403).json({
+          message: "Invalid or expired token",
+          error: true,
+          success: false,
+        });
       }
 
-      req.userId = decoded?._id;
+      req.userId = decoded._id;
       next();
     });
   } catch (err) {
     res.status(400).json({
       message: err.message || err,
-      data: [],
       error: true,
       success: false,
     });
