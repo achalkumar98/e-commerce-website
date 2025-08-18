@@ -3,27 +3,31 @@ const backendDomain = "http://localhost:8080";
 const Summary_API = {
   signUP: {
     url: `${backendDomain}/api/signup`,
-    method : "post",
+    method: "post",
   },
-  signIn : {
-  url: `${backendDomain}/api/signin`,
-  method : "post",
+  signIn: {
+    url: `${backendDomain}/api/signin`,
+    method: "post",
   },
-  current_user : {
-    url : `${backendDomain}/api/user-details`,
-    method : "get",
+  current_user: {
+    url: `${backendDomain}/api/user-details`,
+    method: "get",
   },
-  logout_user : {
-    url : `${backendDomain}/api/userlogout`,
-    method : "get",
+  logout_user: {
+    url: `${backendDomain}/api/userlogout`,
+    method: "get",
   },
-  allUser : {
+  allUser: {
     url: `${backendDomain}/api/all-users`,
-    method : "get",
+    method: "get",
   },
-  updateUserData : {
-    url : `${backendDomain}/api/update-user`,
-    method : "post",
+  updateUserData: {
+    url: `${backendDomain}/api/update-user`,
+    method: "post",
+  },
+  uploadProduct: {
+    url: `${backendDomain}/api/upload-product`,
+    method: "post",
   },
 };
 
