@@ -8,15 +8,16 @@ import { MdDelete } from "react-icons/md";
 import Summary_API from "../utils/constants";
 import { toast } from "react-toastify";
 
-const UploadProduct = ({ onClose, fetchData }) => {
+const AdminEditProduct = ({ onClose, productData, fetchdata }) => {
   const [data, setData] = useState({
-    productName: "",
-    brandName: "",
-    category: "",
-    productImage: [],
-    description: "",
-    price: "",
-    selling: "",
+    ...productData,
+    productName: productData?.productName,
+    brandName: productData?.brandName,
+    category: productData?.category,
+    productImage: productData?.productImage || [],
+    description: productData?.description,
+    price: productData?.price,
+    selling: productData?.selling,
   });
 
   const [openFullScreenImage, setOpenFullScreenImage] = useState(false);
@@ -62,8 +63,8 @@ const UploadProduct = ({ onClose, fetchData }) => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    const response = await fetch(Summary_API.uploadProduct.url, {
-      method: Summary_API.uploadProduct.method,
+    const response = await fetch(Summary_API.updateProduct.url, {
+      method: Summary_API.updateProduct.method,
       credentials: "include",
       headers: {
         "content-type": "application/json",
@@ -76,19 +77,19 @@ const UploadProduct = ({ onClose, fetchData }) => {
     if (responseData.success) {
       toast.success(responseData?.message);
       onClose();
-      fetchData();
+      fetchdata();
     }
 
     if (responseData.error) {
       toast.error(responseData?.message);
     }
   };
-
+  
   return (
     <div className="fixed w-full h-full bg-black/30 backdrop-blur-xs top-0 left-0 right-0 bottom-0 flex justify-center items-center">
       <div className="bg-white p-4 rounded w-full max-w-2xl h-full max-h-[80%] overflow-hidden">
         <div className="flex justify-between items-center pb-3">
-          <h2 className="font-bold text-lg">Upload Product</h2>
+          <h2 className="font-bold text-lg">Edit Product</h2>
           <div
             className="w-fit ml-auto text-2xl hover:text-red-600 cursor-pointer"
             onClick={onClose}
@@ -239,7 +240,7 @@ const UploadProduct = ({ onClose, fetchData }) => {
           ></textarea>
 
           <button className="px-3 py-2 bg-red-600 text-white mb-10 hover:bg-red-700">
-            Upload Product
+            Update Product
           </button>
         </form>
       </div>
@@ -255,4 +256,4 @@ const UploadProduct = ({ onClose, fetchData }) => {
   );
 };
 
-export default UploadProduct;
+export default AdminEditProduct;
