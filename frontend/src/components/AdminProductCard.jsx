@@ -7,13 +7,13 @@ const AdminProductCard = ({ data, fetchdata }) => {
   const [editProduct, setEditProduct] = useState(false);
 
   return (
-    <div className="bg-white p-4 rounded">
+    <div className="bg-white p-6 rounded">
       <div className="w-50">
-        <div className="w-32 h-32 flex justify-center items-center">
+        <div className="w-45 h-52 flex justify-center items-center">
           <img
           src={data?.productImage[0]}
-          width={120}
-          height={120}
+          width={100}
+          height={150}
           className="mx-auto object-fill h-full"
         />
         </div>
