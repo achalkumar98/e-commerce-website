@@ -7,29 +7,37 @@ const AdminProductCard = ({ data, fetchdata }) => {
   const [editProduct, setEditProduct] = useState(false);
 
   return (
-    <div className="bg-white p-6 rounded">
-      <div className="w-50">
-        <div className="w-45 h-52 flex justify-center items-center">
-          <img
+    <div className="bg-white rounded-2xl shadow-md hover:shadow-xl transition-all duration-300 p-4 w-64 flex flex-col">
+      {/* Product Image */}
+      <div className="h-52 flex justify-center items-center rounded-xl overflow-hidden bg-gray-50">
+        <img
           src={data?.productImage[0]}
-          width={100}
-          height={150}
-          className="mx-auto object-fill h-full"
+          alt={data?.productName}
+          className="object-contain h-full w-full hover:scale-105 transition-transform duration-300"
         />
-        </div>
-        <h1 className="text-ellipsis line-clamp-2">{data.productName}</h1>
+      </div>
 
-        <div>
-          <p className="font-semibold">{displayINRCurrency(data.selling)}</p>
-          <div
-            className="w-fit ml-auto p-2 bg-green-100 hover:bg-green-600 rounded-full hover:text-white cursor-pointer"
+      {/* Product Info */}
+      <div className="mt-3 flex flex-col flex-grow">
+        <h1 className="text-gray-800 font-semibold text-base line-clamp-2">
+          {data.productName}
+        </h1>
+
+        <div className="flex items-center justify-between mt-3">
+          <p className="font-bold text-lg text-gray-900">
+            {displayINRCurrency(data.selling)}
+          </p>
+
+          <button
+            className="p-2 rounded-full bg-green-100 text-green-600 hover:bg-green-600 hover:text-white transition-colors duration-300"
             onClick={() => setEditProduct(true)}
           >
-            <MdModeEditOutline />
-          </div>
+            <MdModeEditOutline size={18} />
+          </button>
         </div>
       </div>
 
+      {/* Edit Modal */}
       {editProduct && (
         <AdminEditProduct
           productData={data}

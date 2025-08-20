@@ -20,3 +20,16 @@ body {
 .userTable td {
   @apply border border-gray-200 text-base text-center;
 }
+
+/* scrollbar hidden */
+@layer utilities {
+  .scrollbar-none {
+    -ms-overflow-style: none; /* IE/old Edge */
+    scrollbar-width: none;    /* Firefox */
+  }
+  .scrollbar-none::-webkit-scrollbar {
+    width: 0;
+    height: 0;                /* Chrome/Safari */
+  }
+}
+
