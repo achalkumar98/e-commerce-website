@@ -37,8 +37,6 @@ const Header = () => {
     }
   };
 
-  console.log("add to cart count", context);
-
   return (
     <header className="h-16 shadow-md bg-white fixed w-full z-40">
       <div className="h-full container mx-auto flex items-center px-6 justify-between">
@@ -95,7 +93,7 @@ const Header = () => {
             )}
           </div>
           {user?._id && (
-            <div className="text-2xl relative">
+            <Link to={"/cart"} className="text-2xl relative">
               <span>
                 <FaShoppingCart />
               </span>
@@ -103,7 +101,7 @@ const Header = () => {
               <div className="bg-red-600 text-white w-4 h-5 p-1 rounded-full flex items-center justify-center absolute -top-2 -right-2">
                 <p className="text-sm">{context?.cartProductCount}</p>
               </div>
-            </div>
+            </Link>
           )}
 
           <div>
