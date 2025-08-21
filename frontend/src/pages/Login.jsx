@@ -16,8 +16,7 @@ const Login = () => {
 
   const navigate = useNavigate();
 
-  const { fetchUserDetails } = useContext(Context);
-
+  const { fetchUserDetails, fetchUserAddToCart } = useContext(Context);
 
   const handleOnChange = (e) => {
     const { name, value } = e.target;
@@ -36,7 +35,7 @@ const Login = () => {
     try {
       const res = await fetch(Summary_API.signIn.url, {
         method: Summary_API.signIn.method,
-        credentials : "include",
+        credentials: "include",
         headers: {
           "content-type": "application/json",
         },
@@ -53,17 +52,19 @@ const Login = () => {
         toast.success(dataApi.message);
         navigate("/");
         fetchUserDetails();
+        fetchUserAddToCart();
       }
 
       if (dataApi.error) {
         toast.error(dataApi.message);
       }
     } catch (error) {
-      toast.error("Failed to connect to server. Please check your network or server status.");
+      toast.error(
+        "Failed to connect to server. Please check your network or server status."
+      );
       console.error("Fetch error:", error);
     }
   };
-
 
   return (
     <section id="login">

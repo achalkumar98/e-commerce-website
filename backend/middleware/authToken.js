@@ -5,7 +5,7 @@ async function authToken(req, res, next) {
     const token = req.cookies?.token;
     if (!token) {
       return res.status(401).json({
-        message: "No token, please login first",
+        message: "Please login first",
         error: true,
         success: false,
       });
