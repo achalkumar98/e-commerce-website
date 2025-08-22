@@ -1,10 +1,12 @@
-import { useCallback, useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useCallback, useContext, useEffect, useState } from "react";
+import { useNavigate, useParams } from "react-router-dom";
 import Summary_API from "../utils/constants";
 import { FaStar } from "react-icons/fa6";
 import { FaStarHalf } from "react-icons/fa";
 import displayINRCurrency from "../helpers/displayCurrency";
 import CategoryWiseProductDisplay from "../components/CategoryWiseProductDisplay";
+import addToCart from "../helpers/addToCart";
+import Context from "../context";
 
 const ProductDetails = () => {
   const [data, setData] = useState({
@@ -31,6 +33,10 @@ const ProductDetails = () => {
   });
 
   const [zoomImage, setZoomImage] = useState(false);
+
+  const { fetchUserAddToCart } = useContext(Context);
+
+  const navigate = useNavigate();
 
 
   const fetchProductDetails = async () => {
@@ -78,6 +84,17 @@ const ProductDetails = () => {
     setZoomImage(false);
   };
 
+  const handleAddToCart = async (e,id) => {
+    await addToCart(e,id);
+    fetchUserAddToCart();
+  };
+
+  const handleBuyProduct = async (e,id) => {
+    await addToCart(e,id);
+    fetchUserAddToCart();
+    navigate("/cart")
+  };
+
   return (
     <div className="container mx-auto p-4">
       <div className="min-h-[200px] flex flex-col lg:flex-row gap-4">
@@ -112,11 +129,11 @@ const ProductDetails = () => {
           <div className="h-full">
             {loading ? (
               <div className="flex gap-2 lg:flex-col overflow-x-auto overflow-y-hidden scrollbar-none scroll-smooth h-full">
-                {productImageListLoading.map((el) => {
+                {productImageListLoading.map((el,index) => {
                   return (
                     <div
                       className="h-20 w-20 bg-slate-200 rounded animate-pulse"
-                      key={"loadingImage"}
+                      key={"loadingImage"+index}
                     ></div>
                   );
                 })}
@@ -194,10 +211,16 @@ const ProductDetails = () => {
             </div>
 
             <div className="flex items-center gap-3 my-2">
-              <button className="border-2 border-red-600 rounded px-3 py-1 min-w-[120px] text-red-600 font-medium hover:bg-red-600 hover:text-white">
+              <button 
+              className="border-2 border-red-600 rounded px-3 py-1 min-w-[120px] text-red-600 font-medium hover:bg-red-600 hover:text-white"
+              onClick={(e)=>handleBuyProduct(e,data?._id)}
+              >
                 Buy
               </button>
-              <button className="border-2 border-red-600 rounded px-3 py-1 min-w-[120px] font-medium text-white bg-red-600 hover:text-red-600 hover:bg-white">
+              <button 
+              className="border-2 border-red-600 rounded px-3 py-1 min-w-[120px] font-medium text-white bg-red-600 hover:text-red-600 hover:bg-white"
+              onClick={(e)=>handleAddToCart(e,data?._id)}
+              >
                 Add To Cart
               </button>
             </div>
