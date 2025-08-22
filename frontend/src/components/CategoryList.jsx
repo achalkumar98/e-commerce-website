@@ -27,13 +27,16 @@ const CategoryList = () => {
         {loading
           ? categoryLoading.map((el, index) => {
               return (
-                <div className="h-16 w-16 md:w-20 md:h-20 rounded-full overflow-hidden bg-slate-200 animate-pulse" key={"categoryLoading"+index}></div>
+                <div
+                  className="h-16 w-16 md:w-20 md:h-20 rounded-full overflow-hidden bg-slate-200 animate-pulse"
+                  key={"categoryLoading" + index}
+                ></div>
               );
             })
           : categoryProduct.map((product, index) => {
               return (
                 <Link
-                  to={"/product-category/" + product?.category}
+                  to={"/product-category?category=" + product?.category}
                   key={product?.category}
                   className="cursor-pointer"
                 >
