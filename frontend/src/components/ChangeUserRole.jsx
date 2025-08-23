@@ -9,8 +9,6 @@ const ChangeUserRole = ({ name, email, role, userId, onClose, callFunc }) => {
 
   const handleOnChangeSelect = (e) => {
     setUserRole(e.target.value);
-
-    console.log(e.target.value);
   };
 
   const updateUserRole = async () => {
@@ -20,10 +18,7 @@ const ChangeUserRole = ({ name, email, role, userId, onClose, callFunc }) => {
       headers: {
         "content-type": "application/json",
       },
-      body: JSON.stringify({
-        userId: userId,
-        role: userRole,
-      }),
+      body: JSON.stringify({ userId, role: userRole }),
     });
 
     const responseData = await fetchResponse.json();
@@ -32,45 +27,51 @@ const ChangeUserRole = ({ name, email, role, userId, onClose, callFunc }) => {
       toast.success(responseData.message);
       onClose();
       callFunc();
+    } else {
+      toast.error(responseData.message);
     }
-
-    console.log("role updated", responseData);
   };
 
   return (
-    <div className="fixed top-0 left-0 w-full h-full z-10 flex justify-center items-center bg-black/30 backdrop-blur-xs">
-      <div className="mx-auto bg-white shadow-md p-4 w-full max-w-sm">
-        <button className="block ml-auto" onClick={onClose}>
+    <div className="fixed inset-0 z-50 flex justify-center items-center bg-black/30 backdrop-blur-sm">
+      <div className="bg-white rounded-2xl shadow-2xl max-w-sm w-full p-6 mx-4">
+        {/* Close Button */}
+        <button
+          onClick={onClose}
+          className="absolute top-4 right-4 text-2xl text-gray-700 hover:text-red-600 transition-colors"
+        >
           <IoMdClose />
         </button>
 
-        <h1 className="pb-4 text-lg font-medium">Change User Role</h1>
+        <h2 className="text-xl font-semibold mb-4">Change User Role</h2>
 
-        <p>Name : {name}</p>
-        <p>Email : {email}</p>
+        <p className="mb-1 font-medium">
+          Name: <span className="font-normal">{name}</span>
+        </p>
+        <p className="mb-4 font-medium">
+          Email: <span className="font-normal">{email}</span>
+        </p>
 
-        <div className="flex items-center justify-between my-4">
-          <p>Role :</p>
+        <div className="flex items-center justify-between mb-6">
+          <label className="font-medium">Role:</label>
           <select
-            className="border border-gray-200 px-4 py-1"
             value={userRole}
             onChange={handleOnChangeSelect}
+            className="border border-gray-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-red-500"
           >
-            {Object.values(ROLE).map((el) => {
-              return (
-                <option value={el} key={el}>
-                  {el}
-                </option>
-              );
-            })}
+            {Object.values(ROLE).map((el) => (
+              <option value={el} key={el}>
+                {el}
+              </option>
+            ))}
           </select>
         </div>
 
         <button
-          className="w-fit mx-auto block p-1 px-3 rounded-full bg-red-600 text-white cursor-pointer hover:bg-red-700"
           onClick={updateUserRole}
+          className="w-full py-2 px-4 bg-red-600 text-white font-medium rounded-full hover:bg-red-700 transition-colors"
         >
-          Change Role
+          Update Role
         </button>
       </div>
     </div>

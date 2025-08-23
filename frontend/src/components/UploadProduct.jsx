@@ -20,235 +20,218 @@ const UploadProduct = ({ onClose, fetchData }) => {
   });
 
   const [openFullScreenImage, setOpenFullScreenImage] = useState(false);
-
   const [fullScreenImage, setFullScreenImage] = useState("");
 
   const handleOnChange = (e) => {
     const { name, value } = e.target;
-    setData((preve) => {
-      return {
-        ...preve,
-        [name]: value,
-      };
-    });
+    setData((preve) => ({ ...preve, [name]: value }));
   };
 
   const handleUploadProduct = async (e) => {
     const file = e.target.files[0];
-
     const uploadImageCloudinary = await uploadImage(file);
-
-    setData((preve) => {
-      return {
-        ...preve,
-        productImage: [...preve.productImage, uploadImageCloudinary.url],
-      };
-    });
+    setData((preve) => ({
+      ...preve,
+      productImage: [...preve.productImage, uploadImageCloudinary.url],
+    }));
   };
 
-  const handleDeleteProductImage = async (index) => {
-    console.log("image index", index);
+  const handleDeleteProductImage = (index) => {
     const newProductImage = [...data.productImage];
     newProductImage.splice(index, 1);
-    setData((preve) => {
-      return {
-        ...preve,
-        productImage: [...newProductImage],
-      };
-    });
+    setData((preve) => ({ ...preve, productImage: [...newProductImage] }));
   };
 
-  // Upload product
   const handleSubmit = async (e) => {
     e.preventDefault();
-
     const response = await fetch(Summary_API.uploadProduct.url, {
       method: Summary_API.uploadProduct.method,
       credentials: "include",
-      headers: {
-        "content-type": "application/json",
-      },
+      headers: { "content-type": "application/json" },
       body: JSON.stringify(data),
     });
-
     const responseData = await response.json();
 
     if (responseData.success) {
-      toast.success(responseData?.message);
+      toast.success(responseData.message);
       onClose();
       fetchData();
-    }
-
-    if (responseData.error) {
-      toast.error(responseData?.message);
+    } else {
+      toast.error(responseData.message);
     }
   };
 
   return (
-    <div className="fixed w-full h-full bg-black/30 backdrop-blur-xs top-0 left-0 right-0 bottom-0 flex justify-center items-center">
-      <div className="bg-white p-4 rounded w-full max-w-2xl h-full max-h-[80%] overflow-hidden">
-        <div className="flex justify-between items-center pb-3">
-          <h2 className="font-bold text-lg">Upload Product</h2>
-          <div
-            className="w-fit ml-auto text-2xl hover:text-red-600 cursor-pointer"
+    <div className="fixed inset-0 bg-black/60 backdrop-blur-sm flex justify-center items-center z-50 p-4">
+      <div className="bg-white rounded-xl shadow-xl w-full max-w-2xl h-full max-h-[90%] flex flex-col">
+        {/* Header */}
+        <div className="flex justify-between items-center p-4 border-b border-gray-200">
+          <h2 className="text-xl font-bold">Upload Product</h2>
+          <IoMdClose
+            className="text-2xl cursor-pointer hover:text-red-600"
             onClick={onClose}
-          >
-            <IoMdClose />
-          </div>
+          />
         </div>
+
+        {/* Form */}
         <form
-          className="grid p-4 gap-2 overflow-y-scroll h-full pb-5"
           onSubmit={handleSubmit}
+          className="flex-1 overflow-y-auto p-6 grid gap-4 scrollbar-none"
         >
-          <label htmlFor="productName">Product Name : </label>
-          <input
-            type="text"
-            id="productName"
-            placeholder="enter product name"
-            name="productName"
-            value={data.productName}
-            onChange={handleOnChange}
-            className="p-2 bg-slate-200 border border-gray-100 rounded"
-            required
-          />
+          {/* Product Name */}
+          <div className="grid gap-1">
+            <label htmlFor="productName" className="font-medium">
+              Product Name:
+            </label>
+            <input
+              id="productName"
+              name="productName"
+              type="text"
+              value={data.productName}
+              onChange={handleOnChange}
+              placeholder="Enter product name"
+              required
+              className="p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-red-500 bg-white"
+            />
+          </div>
 
-          <label htmlFor="brandName" className="mt-3">
-            Brand Name :{" "}
-          </label>
-          <input
-            type="text"
-            id="brandName"
-            placeholder="enter brand name"
-            value={data.brandName}
-            name="brandName"
-            onChange={handleOnChange}
-            className="p-2 bg-slate-200 border border-gray-100 rounded"
-            required
-          />
+          {/* Brand Name */}
+          <div className="grid gap-1">
+            <label htmlFor="brandName" className="font-medium">
+              Brand Name:
+            </label>
+            <input
+              id="brandName"
+              name="brandName"
+              type="text"
+              value={data.brandName}
+              onChange={handleOnChange}
+              placeholder="Enter brand name"
+              required
+              className="p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-red-500 bg-white"
+            />
+          </div>
 
-          <label htmlFor="category" className="mt-3">
-            Categories :{" "}
-          </label>
-          <select
-            required
-            value={data.category}
-            name="category"
-            onChange={handleOnChange}
-            className="p-2 bg-slate-200 border border-gray-100 rounded"
-          >
-            <option value={""}>Select Categories</option>
-            {productCategory.map((el, index) => {
-              return (
-                <option value={el.value} key={el.value + index}>
+          {/* Category */}
+          <div className="grid gap-1">
+            <label htmlFor="category" className="font-medium">
+              Category:
+            </label>
+            <select
+              id="category"
+              name="category"
+              value={data.category}
+              onChange={handleOnChange}
+              required
+              className="p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-red-500 bg-white"
+            >
+              <option value="">Select Category</option>
+              {productCategory.map((el, idx) => (
+                <option value={el.value} key={el.value + idx}>
                   {el.label}
                 </option>
-              );
-            })}
-          </select>
+              ))}
+            </select>
+          </div>
 
-          <label htmlFor="productImage" className="mt-3">
-            Product Image :
-          </label>
-          <label htmlFor="uploadImageInput">
-            <div className="p-2 bg-slate-200 border border-gray-100 rounded h-32 w-full flex justify-center items-center cursor-pointer">
-              <div className="text-slate-600 flex justify-center items-center flex-col gap-2">
-                <span className="text-4xl">
-                  <FaCloudUploadAlt />
-                </span>
-                <p className="text-sm">Upload Product Image</p>
-                <input
-                  type="file"
-                  id="uploadImageInput"
-                  className="hidden"
-                  onChange={handleUploadProduct}
-                />
-              </div>
-            </div>
-          </label>
-          <div>
-            {data?.productImage[0] ? (
-              <div className="flex items-center gap-2">
-                {data.productImage.map((el, index) => {
-                  return (
-                    <div className="relative group">
-                      <img
-                        src={el}
-                        alt={el}
-                        width={80}
-                        height={80}
-                        className="bg-slate-100 border border-gray-200 cursor-pointer"
-                        onClick={() => {
-                          setOpenFullScreenImage(true);
-                          setFullScreenImage(el);
-                        }}
-                      />
-                      <div
-                        className="absolute bottom-0 right-0 p-1 text-white bg-red-600 rounded-full hidden group-hover:block cursor-pointer"
-                        onClick={() => handleDeleteProductImage(index)}
-                      >
-                        <MdDelete />
-                      </div>
-                    </div>
-                  );
-                })}
+          {/* Upload Images */}
+          <div className="grid gap-1">
+            <label className="font-medium">Product Images:</label>
+            <label
+              htmlFor="uploadImageInput"
+              className="h-32 w-full border-2 border-dashed border-gray-300 rounded-md flex flex-col justify-center items-center gap-2 cursor-pointer bg-white shadow-sm hover:bg-gray-50 transition"
+            >
+              <FaCloudUploadAlt className="text-4xl text-gray-400" />
+              <span className="text-gray-500 text-sm">Upload Product Image</span>
+              <input
+                type="file"
+                id="uploadImageInput"
+                className="hidden"
+                onChange={handleUploadProduct}
+              />
+            </label>
+            {/* Preview */}
+            {data.productImage.length > 0 ? (
+              <div className="flex flex-wrap gap-2 mt-2">
+                {data.productImage.map((img, idx) => (
+                  <div key={idx} className="relative group">
+                    <img
+                      src={img}
+                      alt={`product-${idx}`}
+                      className="w-20 h-20 object-cover rounded-md cursor-pointer border border-gray-200"
+                      onClick={() => {
+                        setOpenFullScreenImage(true);
+                        setFullScreenImage(img);
+                      }}
+                    />
+                    <MdDelete
+                      className="absolute top-1 right-1 text-white bg-red-600 rounded-full p-0.5 hidden group-hover:block cursor-pointer"
+                      onClick={() => handleDeleteProductImage(idx)}
+                    />
+                  </div>
+                ))}
               </div>
             ) : (
-              <p className="text-red-600 text-xs">
-                *Please upload product image
+              <p className="text-red-600 text-xs mt-1">
+                *Please upload at least one image
               </p>
             )}
           </div>
-          <label htmlFor="price" className="mt-3">
-            Price :
-          </label>
-          <input
-            type="number"
-            id="price"
-            placeholder="enter price"
-            value={data.price}
-            name="price"
-            onChange={handleOnChange}
-            className="p-2 bg-slate-200 border border-gray-100 rounded"
-            required
-          />
 
-          <label htmlFor="selling" className="mt-3">
-            Selling Price :
-          </label>
-          <input
-            type="number"
-            id="selling"
-            placeholder="enter selling price"
-            value={data.selling}
-            name="selling"
-            onChange={handleOnChange}
-            className="p-2 bg-slate-200 border border-gray-100 rounded"
-            required
-          />
+          {/* Price & Selling */}
+          <div className="grid gap-1 md:grid-cols-2 md:gap-4">
+            <div className="grid gap-1">
+              <label className="font-medium">Price:</label>
+              <input
+                type="number"
+                name="price"
+                value={data.price}
+                onChange={handleOnChange}
+                required
+                className="p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-red-500 bg-white"
+              />
+            </div>
+            <div className="grid gap-1">
+              <label className="font-medium">Selling Price:</label>
+              <input
+                type="number"
+                name="selling"
+                value={data.selling}
+                onChange={handleOnChange}
+                required
+                className="p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-red-500 bg-white"
+              />
+            </div>
+          </div>
 
-          <label htmlFor="description" className="mt-3">
-            Description :
-          </label>
-          <textarea
-            className="h-28 bg-slate-200 border border-gray-100 resize-none p-1"
-            placeholder="enter product descriptions"
-            rows={3}
-            name="description"
-            value={data.description}
-            onChange={handleOnChange}
-          ></textarea>
+          {/* Description */}
+          <div className="grid gap-1">
+            <label className="font-medium">Description:</label>
+            <textarea
+              name="description"
+              value={data.description}
+              onChange={handleOnChange}
+              placeholder="Enter product description"
+              rows={4}
+              className="p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-red-500 bg-white resize-none"
+            />
+          </div>
 
-          <button className="px-3 py-2 bg-red-600 text-white mb-10 hover:bg-red-700">
+          {/* Submit */}
+          <button
+            type="submit"
+            className="bg-red-600 hover:bg-red-700 text-white px-4 py-2 rounded-md shadow-md hover:shadow-lg transition-all mt-4"
+          >
             Upload Product
           </button>
         </form>
       </div>
 
-      {/* display image full screen */}
+      {/* Full screen image */}
       {openFullScreenImage && (
         <DisplayImage
-          onClose={() => setOpenFullScreenImage(false)}
           imgUrl={fullScreenImage}
+          onClose={() => setOpenFullScreenImage(false)}
         />
       )}
     </div>

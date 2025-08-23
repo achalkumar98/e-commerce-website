@@ -1,7 +1,6 @@
-import { useEffect } from "react";
-import { useState } from "react";
-import Summary_API from "../utils/constants";
+import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
+import Summary_API from "../utils/constants";
 
 const CategoryList = () => {
   const [categoryProduct, setCategoryProduct] = useState([]);
@@ -23,36 +22,32 @@ const CategoryList = () => {
 
   return (
     <div className="container mx-auto p-4">
-      <div className="flex items-center gap-4 justify-between overflow-x-auto overflow-y-hidden scrollbar-none scroll-smooth">
+      <div className="flex items-center justify-between gap-4 overflow-x-auto scrollbar-none scroll-smooth">
         {loading
-          ? categoryLoading.map((el, index) => {
-              return (
-                <div
-                  className="h-16 w-16 md:w-20 md:h-20 rounded-full overflow-hidden bg-slate-200 animate-pulse"
-                  key={"categoryLoading" + index}
-                ></div>
-              );
-            })
-          : categoryProduct.map((product, index) => {
-              return (
-                <Link
-                  to={"/product-category?category=" + product?.category}
-                  key={product?.category}
-                  className="cursor-pointer"
-                >
-                  <div className="w-16 h-16 md:w-20 md:h-20 rounded-full overflow-hidden p-4 bg-slate-200 flex items-center justify-center">
-                    <img
-                      src={product?.productImage[0]}
-                      alt={product?.category}
-                      className="h-full object-scale-down mix-blend-multiply hover:scale-125 transition-all"
-                    />
-                  </div>
-                  <p className="text-center text-sm md:text-base capitalize">
-                    {product?.category}
-                  </p>
-                </Link>
-              );
-            })}
+          ? categoryLoading.map((_, index) => (
+              <div
+                key={index}
+                className="h-16 w-16 md:w-20 md:h-20 rounded-full bg-gray-200 animate-pulse flex-shrink-0"
+              ></div>
+            ))
+          : categoryProduct.map((product) => (
+              <Link
+                to={`/product-category?category=${product?.category}`}
+                key={product?.category}
+                className="flex-shrink-0 group"
+              >
+                <div className="w-16 h-16 md:w-20 md:h-20 rounded-full bg-gray-100 shadow-sm flex items-center justify-center overflow-hidden p-3 transition-all duration-300 group-hover:shadow-md group-hover:bg-gray-200">
+                  <img
+                    src={product?.productImage[0]}
+                    alt={product?.category}
+                    className="h-full object-contain mix-blend-multiply transition-transform duration-300 group-hover:scale-110"
+                  />
+                </div>
+                <p className="text-center mt-2 text-sm md:text-base capitalize text-gray-700 group-hover:text-red-600">
+                  {product?.category}
+                </p>
+              </Link>
+            ))}
       </div>
     </div>
   );

@@ -3,7 +3,6 @@ import Summary_API from "../utils/constants";
 import Context from "../context";
 import displayINRCurrency from "../helpers/displayCurrency";
 import { MdDelete } from "react-icons/md";
-import { current } from "@reduxjs/toolkit";
 
 const Cart = () => {
   const [data, setData] = useState([]);

@@ -2,16 +2,23 @@ import { IoMdClose } from "react-icons/io";
 
 const DisplayImage = ({ imgUrl, onClose }) => {
   return (
-    <div className="fixed bottom-0 top-0 right-0 left-0 flex justify-center items-center">
-      <div className="bg-white shadow-lg rounded max-w-5xl mx-auto p-4">
-        <div
-          className="w-fit ml-auto text-2xl hover:text-red-600 cursor-pointer"
+    <div className="fixed inset-0 flex justify-center items-center z-50 bg-black/50 backdrop-blur-sm">
+      <div className="relative bg-white rounded-2xl shadow-2xl max-w-5xl w-full p-4 mx-4">
+        {/* Close Button */}
+        <button
           onClick={onClose}
+          className="absolute top-4 right-4 text-2xl text-gray-700 hover:text-red-600 transition-colors"
         >
           <IoMdClose />
-        </div>
-        <div className="flex justify-center p-4 max-w-[80vh] max-h-[80vh]">
-          <img src={imgUrl} className="w-full h-full" />
+        </button>
+
+        {/* Image Container */}
+        <div className="flex justify-center items-center max-h-[80vh] overflow-hidden">
+          <img
+            src={imgUrl}
+            alt="Full Screen"
+            className="object-contain w-full h-full rounded-xl shadow-md transition-transform duration-300 hover:scale-105"
+          />
         </div>
       </div>
     </div>

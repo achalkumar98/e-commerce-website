@@ -42,49 +42,61 @@ const AllUsers = () => {
   }, []);
 
   return (
-    <div className="bg-white pb-4">
-      <table className="w-full userTable">
-        <thead>
-          <tr className="bg-black text-white">
-            <th>Sr.</th>
-            <th>Name</th>
-            <th>Email</th>
-            <th>Role</th>
-            <th>Created Date</th>
-            <th>Action</th>
-          </tr>
-        </thead>
-        <tbody>
-          {allUser.map((el, index) => {
-            return (
-              <tr key={el._id}>
-                <td>{index + 1}</td>
-                <td>{el?.name}</td>
-                <td>{el?.email}</td>
-                <td>{el?.role}</td>
-                <td>
-                  {dayjs
-                    .utc(el?.createdAt)
-                    .tz("Asia/Kolkata")
-                    .format("D MMMM YYYY, h:mm A")}
-                </td>
-                <td>
-                  <button
-                    className="bg-green-100 p-2 rounded-full cursor-pointer hover:bg-green-400 hover:text-white"
-                    onClick={() => {
-                    setUpdateUserDetails(el)
-                    setOpenUpdateRole(true)
-                  }}
-                  >
-                    <MdModeEdit />
-                  </button>
+    <div className="p-4">
+      <div className="overflow-x-auto rounded-lg shadow-md">
+        <table className="w-full text-left border-collapse">
+          <thead className="bg-gray-800 text-white">
+            <tr>
+              <th className="px-4 py-2">Sr.</th>
+              <th className="px-4 py-2">Name</th>
+              <th className="px-4 py-2">Email</th>
+              <th className="px-4 py-2">Role</th>
+              <th className="px-4 py-2">Created Date</th>
+              <th className="px-4 py-2">Action</th>
+            </tr>
+          </thead>
+          <tbody className="bg-white">
+            {allUser.length > 0 ? (
+              allUser.map((user, index) => (
+                <tr
+                  key={user._id}
+                  className="hover:bg-gray-100 transition-colors"
+                >
+                  <td className="px-4 py-2">{index + 1}</td>
+                  <td className="px-4 py-2">{user.name}</td>
+                  <td className="px-4 py-2">{user.email}</td>
+                  <td className="px-4 py-2">{user.role}</td>
+                  <td className="px-4 py-2">
+                    {dayjs
+                      .utc(user.createdAt)
+                      .tz("Asia/Kolkata")
+                      .format("D MMMM YYYY, h:mm A")}
+                  </td>
+                  <td className="px-4 py-2">
+                    <button
+                      className="bg-green-100 p-2 rounded-full hover:bg-green-400 hover:text-white transition-colors"
+                      onClick={() => {
+                        setUpdateUserDetails(user);
+                        setOpenUpdateRole(true);
+                      }}
+                    >
+                      <MdModeEdit />
+                    </button>
+                  </td>
+                </tr>
+              ))
+            ) : (
+              <tr>
+                <td colSpan={6} className="text-center py-4 text-gray-500">
+                  No users found.
                 </td>
               </tr>
-            );
-          })}
-        </tbody>
-      </table>
+            )}
+          </tbody>
+        </table>
+      </div>
 
+      {/* Change Role Modal */}
       {openUpdateRole && (
         <ChangeUserRole
           onClose={() => setOpenUpdateRole(false)}

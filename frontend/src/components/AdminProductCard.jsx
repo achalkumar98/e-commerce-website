@@ -7,13 +7,13 @@ const AdminProductCard = ({ data, fetchdata }) => {
   const [editProduct, setEditProduct] = useState(false);
 
   return (
-    <div className="bg-white rounded-2xl shadow-md hover:shadow-xl transition-all duration-300 p-4 w-64 flex flex-col">
+    <div className="bg-white rounded-2xl shadow-md hover:shadow-xl transition-shadow duration-300 p-4 w-64 flex flex-col">
       {/* Product Image */}
-      <div className="h-52 flex justify-center items-center rounded-xl overflow-hidden bg-gray-50">
+      <div className="h-52 flex justify-center items-center rounded-xl overflow-hidden bg-gray-50 group">
         <img
           src={data?.productImage[0]}
           alt={data?.productName}
-          className="object-contain h-full w-full hover:scale-105 transition-transform duration-300"
+          className="object-contain h-full w-full transition-transform duration-300 group-hover:scale-105"
         />
       </div>
 

@@ -1,8 +1,7 @@
 import { useContext, useEffect, useRef, useState } from "react";
 import fetchCategoryWiseProduct from "../helpers/fetchCategoryWiseProduct";
 import displayINRCurrency from "../helpers/displayCurrency";
-import { FaAngleRight } from "react-icons/fa";
-import { FaAngleLeft } from "react-icons/fa";
+import { FaAngleRight, FaAngleLeft } from "react-icons/fa";
 import { Link } from "react-router-dom";
 import addToCart from "../helpers/addToCart";
 import Context from "../context";
@@ -10,14 +9,13 @@ import Context from "../context";
 const HorizontalCardProduct = ({ category, heading }) => {
   const [data, setData] = useState([]);
   const [loading, setLoading] = useState(true);
-  const loadingList = new Array(13).fill(null);
+  const loadingList = new Array(6).fill(null);
 
-  const [scroll, setScroll] = useState(0);
   const scrollElement = useRef();
-
   const { fetchUserAddToCart } = useContext(Context);
 
-   const handleAddToCart = async (e, id) => {
+  const handleAddToCart = async (e, id) => {
+    e.preventDefault();
     await addToCart(e, id);
     fetchUserAddToCart();
   };
@@ -25,13 +23,13 @@ const HorizontalCardProduct = ({ category, heading }) => {
   const fetchData = async () => {
     setLoading(true);
     const CategoryProduct = await fetchCategoryWiseProduct(category);
-    setLoading(false);
     setData(CategoryProduct?.data);
+    setLoading(false);
   };
 
   useEffect(() => {
     fetchData();
-  }, []);
+  }, [category]);
 
   const scrollRight = () => {
     scrollElement.current.scrollLeft += 300;
@@ -44,78 +42,80 @@ const HorizontalCardProduct = ({ category, heading }) => {
   return (
     <div className="container mx-auto px-4 my-6 relative">
       <h2 className="text-2xl font-semibold py-4">{heading}</h2>
-      <div
-        className="flex items-center gap-4 md:gap-6 overflow-x-auto overflow-y-hidden scrollbar-none scroll-smooth transition-all"
-        ref={scrollElement}
-      >
+      <div className="relative">
+        {/* Scroll Buttons */}
         <button
-          className="bg-white shadow-md rounded-full p-1 absolute left-0 text-lg hidden md:block"
+          className="absolute left-0 top-1/2 -translate-y-1/2 z-20 bg-white shadow-lg p-2 rounded-full hover:bg-red-600 hover:text-white transition-colors hidden md:flex"
           onClick={scrollLeft}
         >
           <FaAngleLeft />
         </button>
         <button
-          className="bg-white shadow-md rounded-full p-1 absolute right-0 text-lg hidden md:block"
+          className="absolute right-0 top-1/2 -translate-y-1/2 z-20 bg-white shadow-lg p-2 rounded-full hover:bg-red-600 hover:text-white transition-colors hidden md:flex"
           onClick={scrollRight}
         >
           <FaAngleRight />
         </button>
-        {loading
-          ? loadingList.map((product, index) => {
-              return (
+
+        {/* Product Cards */}
+        <div
+          className="flex gap-4 md:gap-6 overflow-x-auto overflow-y-hidden scrollbar-none scroll-smooth"
+          ref={scrollElement}
+        >
+          {loading
+            ? loadingList.map((_, index) => (
                 <div
-                key={index} 
-                className="w-full min-w-[280px] md:min-w-[320px] max-w-[280px] md:max-w-[320px] h-36 bg-white rounded-sm shadow flex">
-                  <div className="bg-slate-200 h-full p-4 min-w-[120px] md:min-w-[145px] animate-pulse"></div>
-                  <div className="p-4 grid w-full gap-2">
-                    <h2 className="font-medium text-base md:text-lg text-ellipsis line-clamp-1 text-black bg-slate-200 animate-pulse p-1 rounded-full"></h2>
-                    <p className="capitalize text-slate-500 p-1 bg-slate-200 animate-pulse rounded-full"></p>
-                    <div className="flex gap-3 w-full">
-                      <p className="text-red-600 font-medium p-1 bg-slate-200 w-full animate-pulse rounded-full"></p>
-                      <p className="text-slate-500 line-through p-1 bg-slate-200 w-full animate-pulse rounded-full"></p>
+                  key={index}
+                  className="w-[280px] md:w-[320px] h-36 bg-white rounded-lg shadow-md flex animate-pulse"
+                >
+                  <div className="bg-slate-200 h-full w-32 md:w-36"></div>
+                  <div className="flex-1 p-4 flex flex-col justify-between gap-2">
+                    <div className="h-5 bg-slate-200 rounded w-3/4"></div>
+                    <div className="h-4 bg-slate-200 rounded w-1/2"></div>
+                    <div className="flex gap-2">
+                      <div className="h-5 bg-slate-200 rounded w-1/2"></div>
+                      <div className="h-5 bg-slate-200 rounded w-1/3"></div>
                     </div>
-                    <button className="text-sm text-white px-3 py-0.5 w-full bg-slate-200 animate-pulse rounded-full"></button>
+                    <div className="h-8 bg-slate-200 rounded w-full"></div>
                   </div>
                 </div>
-              );
-            })
-          : data.map((product, index) => {
-              return (
-                <Link 
-                key={product._id || index}
-                to={"product/"+product?._id} 
-                className="w-full min-w-[280px] md:min-w-[320px] max-w-[280px] md:max-w-[320px] h-36 bg-white rounded-sm shadow flex">
-                  <div className="bg-slate-200 h-full p-4 min-w-[120px] md:min-w-[145px]">
+              ))
+            : data.map((product) => (
+                <Link
+                  key={product._id}
+                  to={`/product/${product._id}`}
+                  className="w-[280px] md:w-[320px] h-36 bg-white rounded-lg shadow-md flex hover:shadow-xl transition-shadow"
+                >
+                  <div className="h-full w-32 md:w-36 p-2 flex items-center justify-center bg-slate-100 rounded-l-lg">
                     <img
                       src={product.productImage[0]}
-                      className="object-scale-down h-full hover:scale-110 transition-all"
+                      alt={product.productName}
+                      className="h-full object-contain hover:scale-105 transition-transform"
                     />
                   </div>
-                  <div className="p-4 grid">
-                    <h2 className="font-medium text-base md:text-lg text-ellipsis line-clamp-1 text-black">
-                      {product?.productName}
+                  <div className="flex-1 p-4 flex flex-col justify-between">
+                    <h2 className="font-medium text-base md:text-lg line-clamp-1">
+                      {product.productName}
                     </h2>
-                    <p className="capitalize text-slate-500">
-                      {product?.category}
-                    </p>
-                    <div className="flex gap-3">
-                      <p className="text-red-600 font-medium">
-                        {displayINRCurrency(product?.selling)}
+                    <p className="text-slate-500 capitalize">{product.category}</p>
+                    <div className="flex gap-2 items-center">
+                      <p className="text-red-600 font-semibold">
+                        {displayINRCurrency(product.selling)}
                       </p>
-                      <p className="text-slate-500 line-through">
-                        {displayINRCurrency(product?.price)}
+                      <p className="line-through text-slate-400">
+                        {displayINRCurrency(product.price)}
                       </p>
                     </div>
-                    <button 
-                    className="text-sm bg-red-600 hover:bg-red-700 text-white px-3 py-0.5 rounded-full"
-                    onClick={(e)=>handleAddToCart(e, product?._id)}
+                    <button
+                      onClick={(e) => handleAddToCart(e, product._id)}
+                      className="bg-red-600 hover:bg-red-700 text-white py-1 rounded-full text-sm"
                     >
                       Add to Cart
                     </button>
                   </div>
                 </Link>
-              );
-            })}
+              ))}
+        </div>
       </div>
     </div>
   );
