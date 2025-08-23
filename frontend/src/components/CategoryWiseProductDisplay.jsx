@@ -27,67 +27,74 @@ const CategoryWiseProductDisplay = ({ category, heading }) => {
 
   useEffect(() => {
     fetchData();
-  }, []);
+  }, [category]);
 
   return (
     <div className="container mx-auto px-4 my-6 relative">
       <h2 className="text-2xl font-semibold py-4">{heading}</h2>
       <div className="grid grid-cols-[repeat(auto-fit,minmax(300px,320px))] justify-center md:gap-6 overflow-x-auto overflow-y-hidden scrollbar-none scroll-smooth transition-all">
         {loading
-          ? loadingList.map((product, index) => {
-              return (
-                <div className="w-full min-w-[280px] md:min-w-[320px] max-w-[280px] md:max-w-[320px] bg-white rounded-sm shadow">
-                  <div className="bg-slate-200 h-48 p-4 min-w-[280px] md:min-w-[145px] flex justify-center items-center animate-pulse"></div>
-                  <div className="p-4 grid gap-3">
-                    <h2 className="font-medium text-base md:text-lg text-ellipsis line-clamp-1 text-black p-1 py-2 animate-pulse rounded-full bg-slate-200"></h2>
-                    <p className="capitalize text-slate-500 p-1 animate-pulse rounded-full bg-slate-200 py-2"></p>
-                    <div className="flex gap-3">
-                      <p className="text-red-600 font-medium p-1 animate-pulse rounded-full bg-slate-200 w-full py-2"></p>
-                      <p className="text-slate-500 line-through p-1 animate-pulse rounded-full bg-slate-200 w-full py-2"></p>
-                    </div>
-                    <button className="text-sm text-white px-3 rounded-full bg-slate-200 py-2 animate-pulse"></button>
+          ? loadingList.map((_, index) => (
+              <div
+                key={"loading_" + index}
+                className="w-full min-w-[280px] md:min-w-[320px] max-w-[280px] md:max-w-[320px] bg-white rounded-sm shadow"
+              >
+                <div className="bg-slate-200 h-48 p-4 min-w-[280px] md:min-w-[145px] flex justify-center items-center animate-pulse"></div>
+                <div className="p-4 grid gap-3">
+                  <h2 className="font-medium text-base md:text-lg text-ellipsis line-clamp-1 text-black p-1 py-2 animate-pulse rounded-full bg-slate-200"></h2>
+                  <p className="capitalize text-slate-500 p-1 animate-pulse rounded-full bg-slate-200 py-2"></p>
+                  <div className="flex gap-3">
+                    <p className="text-red-600 font-medium p-1 animate-pulse rounded-full bg-slate-200 w-full py-2"></p>
+                    <p className="text-slate-500 line-through p-1 animate-pulse rounded-full bg-slate-200 w-full py-2"></p>
                   </div>
+                  <button className="text-sm text-white px-3 rounded-full bg-slate-200 py-2 animate-pulse"></button>
                 </div>
-              );
-            })
-          : data.map((product, index) => {
-              return (
-                <Link
-                  to={"/product/"+product?._id}
-                  className="w-full min-w-[280px] md:min-w-[320px] max-w-[280px] md:max-w-[320px] bg-white rounded-sm shadow"
-                  onClick={scrollTop}
-                >
-                  <div className="bg-slate-200 h-48 p-4 min-w-[280px] md:min-w-[145px] flex justify-center items-center">
+              </div>
+            ))
+          : data.map((product) => (
+              <Link
+                key={product._id} // unique key for each product
+                to={"/product/" + product?._id}
+                className="w-full min-w-[280px] md:min-w-[320px] max-w-[280px] md:max-w-[320px] bg-white rounded-sm shadow"
+                onClick={scrollTop}
+              >
+                <div className="bg-slate-200 h-48 p-4 min-w-[280px] md:min-w-[145px] flex justify-center items-center">
+                  {product.productImage[0] ? (
                     <img
                       src={product.productImage[0]}
                       className="object-scale-down h-full hover:scale-110 transition-all mix-blend-multiply"
+                      alt={product.productName}
                     />
-                  </div>
-                  <div className="p-4 grid gap-3">
-                    <h2 className="font-medium text-base md:text-lg text-ellipsis line-clamp-1 text-black">
-                      {product?.productName}
-                    </h2>
-                    <p className="capitalize text-slate-500">
-                      {product?.category}
-                    </p>
-                    <div className="flex gap-3">
-                      <p className="text-red-600 font-medium">
-                        {displayINRCurrency(product?.selling)}
-                      </p>
-                      <p className="text-slate-500 line-through">
-                        {displayINRCurrency(product?.price)}
-                      </p>
+                  ) : (
+                    <div className="h-full w-full bg-slate-300 flex items-center justify-center text-gray-500">
+                      No Image
                     </div>
-                    <button
-                      className="text-sm bg-red-600 hover:bg-red-700 text-white px-3 py-0.5 rounded-full"
-                      onClick={(e) => handleAddToCart(e, product?._id)}
-                    >
-                      Add to Cart
-                    </button>
+                  )}
+                </div>
+                <div className="p-4 grid gap-3">
+                  <h2 className="font-medium text-base md:text-lg text-ellipsis line-clamp-1 text-black">
+                    {product?.productName}
+                  </h2>
+                  <p className="capitalize text-slate-500">
+                    {product?.category}
+                  </p>
+                  <div className="flex gap-3">
+                    <p className="text-red-600 font-medium">
+                      {displayINRCurrency(product?.selling)}
+                    </p>
+                    <p className="text-slate-500 line-through">
+                      {displayINRCurrency(product?.price)}
+                    </p>
                   </div>
-                </Link>
-              );
-            })}
+                  <button
+                    className="text-sm bg-red-600 hover:bg-red-700 text-white px-3 py-0.5 rounded-full"
+                    onClick={(e) => handleAddToCart(e, product?._id)}
+                  >
+                    Add to Cart
+                  </button>
+                </div>
+              </Link>
+            ))}
       </div>
     </div>
   );
