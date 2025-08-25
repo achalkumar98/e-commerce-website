@@ -112,6 +112,8 @@ const Header = () => {
                       Admin Panel
                     </Link>
                   )}
+                  <Link to={"/order"} className="whitespace-nowrap hidden md:block hover:bg-slate-100 p-2" onClick={() => setMenuDisplay((preve) => !preve)}>Order</Link>
+
                 </nav>
               </div>
             )}

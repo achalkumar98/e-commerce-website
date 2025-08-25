@@ -1,4 +1,3 @@
-// src/components/AdminPanel.jsx
 import { useEffect } from "react";
 import { FaRegCircleUser } from "react-icons/fa6";
 import { useSelector } from "react-redux";

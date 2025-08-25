@@ -33,33 +33,30 @@ function App() {
   };
 
   useEffect(() => {
-    // user Details
     fetchUserDetails();
-    // user Cart product
     fetchUserAddToCart();
   }, []);
 
   return (
-    <>
-      <Context.Provider
-        value={{
-          fetchUserDetails,
-          cartProductCount, // Current user Add to cart product count
-          fetchUserAddToCart,
-        }}
-      >
-        <ToastContainer position="top-center" />
-
-        <div>
-          <Header />
-          <main className="min-h-[calc(100vh-130px)] pt-16">
-            <Outlet />
-          </main>
-          <Footer />
-        </div>
-      </Context.Provider>
-    </>
+    <Context.Provider
+      value={{
+        fetchUserDetails,
+        cartProductCount,
+        fetchUserAddToCart,
+      }}
+    >
+      <ToastContainer position="top-center" />
+      
+      <div className="flex flex-col min-h-screen">
+        <Header />
+        <main className="flex-1 pt-16">
+          <Outlet />
+        </main>
+        <Footer />
+      </div>
+    </Context.Provider>
   );
 }
 
 export default App;
+

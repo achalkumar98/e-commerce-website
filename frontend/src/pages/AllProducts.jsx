@@ -1,4 +1,3 @@
-// src/pages/AllProducts.jsx
 import { useEffect, useState } from "react";
 import UploadProduct from "../components/UploadProduct";
 import Summary_API from "../utils/constants";
