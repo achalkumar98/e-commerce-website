@@ -1,34 +1,20 @@
 const jwt = require("jsonwebtoken");
 
-async function authToken(req, res, next) {
+function authToken(req, res, next) {
+  const token = req.cookies.token;
+  if (!token)
+    return res
+      .status(401)
+      .json({ message: "Unauthorized", success: false, error: true });
+
   try {
-    const token = req.cookies?.token;
-    if (!token) {
-      return res.status(401).json({
-        message: "Please login first",
-        error: true,
-        success: false,
-      });
-    }
-
-    jwt.verify(token, process.env.JWT_SECRET_KEY, function (err, decoded) {
-      if (err) {
-        return res.status(403).json({
-          message: "Invalid or expired token",
-          error: true,
-          success: false,
-        });
-      }
-
-      req.userId = decoded._id;
-      next();
-    });
+    const decoded = jwt.verify(token, process.env.JWT_SECRET_KEY);
+    req.userId = decoded._id;
+    next();
   } catch (err) {
-    res.status(400).json({
-      message: err.message || err,
-      error: true,
-      success: false,
-    });
+    return res
+      .status(401)
+      .json({ message: "Invalid token", success: false, error: true });
   }
 }
 

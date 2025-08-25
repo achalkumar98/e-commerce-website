@@ -49,6 +49,12 @@ const AdminPanel = () => {
           >
             All Products
           </Link>
+          <Link
+            to="all-orders"
+            className="px-2 py-1 rounded hover:bg-red-100 transition-colors"
+          >
+            All Orders
+          </Link>
         </nav>
       </aside>
 

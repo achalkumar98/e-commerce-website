@@ -8,12 +8,12 @@ import displayINRCurrency from "../helpers/displayCurrency";
 dayjs.extend(utc);
 dayjs.extend(timezone);
 
-const OrderPage = () => {
+const AllOrder = () => {
   const [data, setData] = useState([]);
 
   const fetchOrderDetails = async () => {
-    const response = await fetch(Summary_API.getOrder.url, {
-      method: Summary_API.getOrder.method,
+    const response = await fetch(Summary_API.allOrder.url, {
+      method: Summary_API.allOrder.method,
       credentials: "include",
     });
     const responseData = await response.json();
@@ -29,7 +29,7 @@ const OrderPage = () => {
     return <p className="text-center py-8">No Order available</p>;
 
   return (
-    <div className="p-4 w-full flex flex-col gap-6">
+    <div className="p-4 w-full flex flex-col gap-6 h-[calc(100vh-190px)] overflow-y-auto">
       {data.map((item, index) => (
         <div
           key={String(item.userId) + index}
@@ -43,6 +43,7 @@ const OrderPage = () => {
           </p>
 
           <div className="flex flex-col lg:flex-row justify-between mt-2 gap-4">
+            {/* Products */}
             <div className="grid gap-2">
               {item.productDetails.map((product, idx) => (
                 <div
@@ -68,6 +69,8 @@ const OrderPage = () => {
                 </div>
               ))}
             </div>
+
+            {/* Payment & Shipping */}
             <div className="flex flex-col gap-2 min-w-[250px]">
               <div>
                 <p className="text-lg font-medium">Payment Details:</p>
@@ -85,6 +88,7 @@ const OrderPage = () => {
                     Shipping Amount: {displayINRCurrency(s.shipping_amount)}
                   </p>
                 ))}
+                {/* Total Amount neatly under Shipping, left-aligned */}
                 <p className="font-semibold mt-2 ml-1 text-lg border-t border-gray-200 pt-1">
                   Total Amount: {displayINRCurrency(item.totalAmount)}
                 </p>
@@ -97,4 +101,4 @@ const OrderPage = () => {
   );
 };
 
-export default OrderPage;
+export default AllOrder;

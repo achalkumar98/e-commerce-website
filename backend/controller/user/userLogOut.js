@@ -1,6 +1,12 @@
 async function userLogOut(req, res) {
   try {
-    res.clearCookie("token");
+    const tokenOption = {
+      httpOnly: true,
+      secure: false,
+      sameSite: "Lax",
+    };
+
+    res.clearCookie("token", tokenOption);
     res.json({
       message: "Logged Out Successfully",
       error: false,
@@ -8,12 +14,12 @@ async function userLogOut(req, res) {
       data: [],
     });
   } catch (err) {
-    res.status(400).json({
+    res.status(500).json({
       message: err.message,
       error: true,
       success: false,
     });
   }
-};
+}
 
 module.exports = userLogOut;
