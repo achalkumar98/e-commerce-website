@@ -1,36 +1,39 @@
 🚀 E-Commerce Website – MERN Full Stack Application  
 
 🔥 Overview  
-A user-friendly e-commerce platform that delivers a smooth shopping experience.  
+An e-commerce platform that provides a seamless shopping experience.  
 Customers can explore products, view detailed information, add items to their cart, and complete purchases securely through **Stripe** integration.  
 
 🚀 Live Demo: *Add your live demo link here*  
-📌 GitHub Repository: [E-Commerce Repo](#https://github.com/achalkumar98/e-commerce-website)
+📌 GitHub Repository: [E-Commerce Repo](#https://github.com/achalkumar98/e-commerce-website)  
 
-✨ Features
-✅ JWT & Cookie-based Authentication – Secure login and signup for users and admins.  
-✅ Admin Panel – Only admins can add, update, or delete products.  
-✅ Product Management – View product details with image zoom functionality.  
-✅ Cart & Checkout – Add products to cart, update quantities, and remove items.  
-✅ Stripe Payment Integration – Secure payments with webhook support.  
-✅ Responsive Design – Mobile-first UI built with Tailwind CSS.  
-✅ State Management – Smooth frontend state handling with Redux.
+✨ Features  
+- ✅ JWT & Cookie-based Authentication – Secure login and signup for users and admins.  
+- ✅ Admin Panel – Only admins can add, update, or delete products.  
+- ✅ Product Management – View product details with image zoom functionality.  
+- ✅ Cart & Checkout – Add products to cart, update quantities, and remove items.  
+- ✅ Stripe Payment Integration – Secure payments with webhook support.  
+- ✅ Responsive Design – Mobile-first UI built with Tailwind CSS.  
+- ✅ State Management – Smooth frontend state handling with Redux.  
 
-🛠 Tech Stack
+🛠 Tech Stack  
 **Frontend:** React.js, Redux, Tailwind CSS  
 **Backend:** Node.js, Express.js, MongoDB  
 **Authentication:** JWT & Cookies  
 **Payments:** Stripe  
 
-📂 Project Structure
+📂 Project Structure  
+
 e-commerce-website/
 │── frontend/ # Frontend (React, Redux, Tailwind CSS, DaisyUi)
 │── backend/ # Backend (Node.js, Express, MongoDB)
 │── README.md # Documentation
 
-🏗️ Setup & Installation
 
-1️⃣ Clone the repository
+🏗️ Setup & Installation  
+
+1️⃣ Clone the repository  
+```bash
 git clone https://github.com/achalkumar98/e-commerce-website.git
 cd e-commerce-website
 
@@ -63,12 +66,19 @@ VITE_STRIPE_PUBLIC_KEY=you_stripe_public_key
 Contributions are welcome! Feel free to fork the repository and submit pull requests.
 
 🧠 Upcoming Features (Planned)
+
 🚧 User Reviews & Ratings – Allow users to review and rate products.
+
 💬 Wishlist – Save favorite products for future purchases.
+
 📦 Order History – Track past orders and statuses.
+
 🎨 UI/UX Improvements – Sleeker interface and animations.
+
 🔔 Push Notifications – Alerts for order updates or new products.
+
 📱 PWA Support – Installable on mobile devices for seamless shopping.
+
 💥 Unit & Integration Tests – Enhance stability and reliability.
 
 📫 Contact
