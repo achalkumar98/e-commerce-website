@@ -1,86 +1,101 @@
-🚀 E-Commerce Website – MERN Full Stack Application  
 
-🔥 Overview  
-An e-commerce platform that provides a seamless shopping experience.  
-Customers can explore products, view detailed information, add items to their cart, and complete purchases securely through **Stripe** integration.  
+# 🚀 E-Commerce Website – MERN Full Stack Application 
+ 
+ ## 🔥 Overview 
+An e-commerce platform that provides a seamless shopping experience. Customers can explore products, view detailed information, add items to their cart, and complete purchases securely through **Stripe** integration.
 
 🚀 Live Demo: *Add your live demo link here*  
-📌 GitHub Repository: [E-Commerce Repo](#https://github.com/achalkumar98/e-commerce-website)  
+📌 GitHub Repository: [E-Commerce Repo](https://github.com/achalkumar98/e-commerce-website)  
 
-✨ Features  
-- ✅ JWT & Cookie-based Authentication – Secure login and signup for users and admins.  
-- ✅ Admin Panel – Only admins can add, update, or delete products.  
-- ✅ Product Management – View product details with image zoom functionality.  
-- ✅ Cart & Checkout – Add products to cart, update quantities, and remove items.  
-- ✅ Stripe Payment Integration – Secure payments with webhook support.  
-- ✅ Responsive Design – Mobile-first UI built with Tailwind CSS.  
-- ✅ State Management – Smooth frontend state handling with Redux.  
 
-🛠 Tech Stack  
+## ✨ Features 
+
+ 
+✅ JWT & Cookie-based Authentication – Secure login and signup for users and admins.  
+✅ Admin Panel – Only admins can add, update, or delete products.  
+✅ Product Management – View product details with image zoom functionality.  
+✅ Cart & Checkout – Add products to cart, update quantities, and remove items.  
+✅ Stripe Payment Integration – Secure payments with webhook support.  
+✅ Responsive Design – Mobile-first UI built with Tailwind CSS.  
+✅ State Management – Smooth frontend state handling with Redux.  
+
+
+
+## 🛠 Tech Stack  
+
 **Frontend:** React.js, Redux, Tailwind CSS  
 **Backend:** Node.js, Express.js, MongoDB  
 **Authentication:** JWT & Cookies  
 **Payments:** Stripe  
 
-📂 Project Structure  
 
+## 📂 Project Structure
+
+```bash
 e-commerce-website/
-│── frontend/ # Frontend (React, Redux, Tailwind CSS, DaisyUi)
-│── backend/ # Backend (Node.js, Express, MongoDB)
-│── README.md # Documentation
+│── frontend/      Frontend (React, Redux, Tailwind CSS, DaisyUi)
+│── backend/       Backend (Node.js, Express, MongoDB)
+│── README.md      Documentation
+```
+## 🏗️ Installation  
 
+### 1️⃣ Clone the repository  
 
-🏗️ Setup & Installation  
-
-1️⃣ Clone the repository  
 ```bash
 git clone https://github.com/achalkumar98/e-commerce-website.git
 cd e-commerce-website
+```
+### 2️⃣ Install dependencies 
 
-2️⃣ Install dependencies
+### frontend
+```bash
 cd frontend
 npm install
 npm start
+```
+### Backend
 
-Backend
+```bash
 cd backend
 npm install
 npm run dev
+```
+    
+## Setup Environment Variables
+- Create a `.env` file in both frontend and backend folders.
+- Add necessary environment variables as per `.env.example`.
+### Backend .env
+- `MONGODB_URI=your_mongodb_connection_string`
+- `JWT_SECRET_KEY=your_jwt_secret`
+- `FRONTEND_URL=your_frontend_url`
+- `STRIPE_SECRET_KEY=your_stripe_secret_key`
+- `STRIPE_ENDPOINT_WEBHOOK_SECRET_KEY=your_stripe_webhook_secret`
+### Frontend .env
+- `VITE_CLOUD_NAME_CLOUDINARY=tour_cloudinary_name`
+- `VITE_STRIPE_PUBLIC_KEY=you_stripe_public_key`
 
-3️⃣ Setup environment variables
-Create a .env file in both frontend and backend folders.
-Add necessary environment variables as per .env.example.
 
-Backend .env
-MONGODB_URI=your_mongodb_connection_string
-JWT_SECRET_KEY=your_jwt_secret
-FRONTEND_URL=your_frontend_url
-STRIPE_SECRET_KEY=your_stripe_secret_key
-STRIPE_ENDPOINT_WEBHOOK_SECRET_KEY=your_stripe_webhook_secret
+## 🚀 Contributing
 
-Frontend .env
-VITE_CLOUD_NAME_CLOUDINARY=tour_cloudinary_name
-VITE_STRIPE_PUBLIC_KEY=you_stripe_public_key
-
-🚀 Contributing
 Contributions are welcome! Feel free to fork the repository and submit pull requests.
 
-🧠 Upcoming Features (Planned)
 
-🚧 User Reviews & Ratings – Allow users to review and rate products.
+## 🧠 Upcoming Features (Planned)
 
-💬 Wishlist – Save favorite products for future purchases.
+**🚧 User Reviews & Ratings** – Allow users to review and rate products.
 
-📦 Order History – Track past orders and statuses.
+**💬 Wishlist** – Save favorite products for future purchases.
 
-🎨 UI/UX Improvements – Sleeker interface and animations.
+**📦 Order History** – Track past orders and statuses.
 
-🔔 Push Notifications – Alerts for order updates or new products.
+**🎨 UI/UX Improvements** – Sleeker interface and animations.
 
-📱 PWA Support – Installable on mobile devices for seamless shopping.
+**🔔 Push Notifications** – Alerts for order updates or new products.
 
-💥 Unit & Integration Tests – Enhance stability and reliability.
+**📱 PWA Support** – Installable on mobile devices for seamless shopping.
 
-📫 Contact
-👨‍💻 Author: Achal Kumar
-📧 Email: hackerachal1620@gmail.com
+**💥 Unit & Integration Tests** – Enhance stability and reliability.
+## 📫 Contact
+
+**👨‍💻Author:** [Achal Kumar](https://github.com/achalkumar98)\
+**📧Email:** [hackerachal1620@gmail.com](hackerachal1620@gmail.com)
