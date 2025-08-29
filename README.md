@@ -4,7 +4,7 @@
  ## 🔥 Overview 
 An e-commerce platform that provides a seamless shopping experience. Customers can explore products, view detailed information, add items to their cart, and complete purchases securely through **Stripe** integration.
 
-🚀 Live Demo: https://e-commerce-website-jfor.vercel.app 
+🚀 Live Demo: https://e-commerce-website-jfor.vercel.app  
 📌 GitHub Repository: [E-Commerce Repo](https://github.com/achalkumar98/e-commerce-website)  
 
 
