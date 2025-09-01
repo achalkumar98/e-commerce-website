@@ -71,8 +71,8 @@ npm run dev
 - `STRIPE_SECRET_KEY=your_stripe_secret_key`
 - `STRIPE_ENDPOINT_WEBHOOK_SECRET_KEY=your_stripe_webhook_secret`
 ### Frontend .env
-- `VITE_CLOUD_NAME_CLOUDINARY=tour_cloudinary_name`
-- `VITE_STRIPE_PUBLIC_KEY=you_stripe_public_key`
+- `VITE_CLOUD_NAME_CLOUDINARY=your_cloudinary_name`
+- `VITE_STRIPE_PUBLIC_KEY=your_stripe_public_key`
 
 
 ## 🚀 Contributing
