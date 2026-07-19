@@ -42,22 +42,22 @@ const Login = () => {
         body: JSON.stringify(data),
       });
 
-      if (!res.ok) {
-        throw new Error("Network response was not ok");
-      }
+      const dataApi = await res.json().catch(() => ({}));
 
-      const dataApi = await res.json();
-
-      if (dataApi.success) {
+      if (res.ok && dataApi.success) {
         toast.success(dataApi.message);
         navigate("/");
         fetchUserDetails();
         fetchUserAddToCart();
+        return;
       }
 
-      if (dataApi.error) {
+      if (dataApi.message) {
         toast.error(dataApi.message);
+        return;
       }
+
+      toast.error("Failed to connect to server. Please check your network or server status.");
     } catch (error) {
       toast.error(
         "Failed to connect to server. Please check your network or server status."
